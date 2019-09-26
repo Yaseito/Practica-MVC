@@ -6,6 +6,9 @@
 package com.demo.model;
 
 import com.demo.model.entity.Usuario;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -26,24 +29,46 @@ public class ModeloUsuario extends Model {
 
     static public boolean logUp(Usuario user) {
         boolean band = false;
+        FileWriter flwriter = null;
+        try {
+            //crea el flujo para escribir en el archivo
+            flwriter = new FileWriter("G:\\DemoMVC\\Usuario.txt");
+            //crea un buffer o flujo intermedio antes de escribir directamente en el archivo
+            BufferedWriter bfwriter = new BufferedWriter(flwriter);
 
-        if (user.getId() == 1) {
-            band = true;
-        } else {
-            return band;
+            //escribe los datos en el archivo
+            bfwriter.write("Id: " + user.getId() + "\n Email: " + user.getEmail() + "\n  Clave:" + user.getClave()
+                    + "\n Apellidos: " + user.getApellidos() + "\n Nombres: " + user.getNombres() + "\n Tipo:" + user.getTipo() + "\n");
+
+            //cierra el buffer intermedio
+            bfwriter.close();
+            band=true;
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        return band;
+          return band;
     }
 
     static public boolean recupera(Usuario user) {
         boolean band = false;
-        
-        if ("hola@gmail.com".equals(user.getEmail())) {
+            FileWriter flwriter = null;
+        try {
+            //crea el flujo para escribir en el archivo
+            flwriter = new FileWriter("G:\\DemoMVC\\Usuario.txt");
+            //crea un buffer o flujo intermedio antes de escribir directamente en el archivo
+            BufferedWriter bfwriter = new BufferedWriter(flwriter);
+
+            //Modifica datos en el archivo
+            bfwriter.write("Se modifica la contraseña de: " + user.getEmail() + " por: " + user.getClave()
+                    + "\n");
+
+            //cierra el buffer intermedio
+            bfwriter.close();
             band = true;
-            
-        } else {
-            return band;
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
         return band;
     }
 }

@@ -15,9 +15,9 @@ import javax.swing.JOptionPane;
 public class VistaLogin extends javax.swing.JFrame {
 
     ControllerLogin cLogin;
-    
+
     public VistaLogin() {
-        
+
         initComponents();
         cLogin = new ControllerLogin();
     }
@@ -130,18 +130,21 @@ public class VistaLogin extends javax.swing.JFrame {
         if (band) {
             //Login correcto
             JOptionPane.showMessageDialog(this, "Login Correcto");
-        }else{
+        } else {
             //login incorrecto
             JOptionPane.showMessageDialog(this, "Login Incorrecto");
         }
+
     }//GEN-LAST:event_jbtnLogInActionPerformed
 
     private void jbtnLogUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnLogUpActionPerformed
-        // TODO add your handling code here:
+        FrmVistaLogup logup = new FrmVistaLogup();
+        logup.setVisible(true);
     }//GEN-LAST:event_jbtnLogUpActionPerformed
 
     private void jbtnRecuperarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnRecuperarActionPerformed
-        // TODO add your handling code here:
+        FrmRecupera logup = new FrmRecupera();
+        logup.setVisible(true);
     }//GEN-LAST:event_jbtnRecuperarActionPerformed
 
     /**

@@ -30,7 +30,9 @@ public class ControllerLogin extends Controller {
     public boolean recuperarClave(String usuario, String clave, String claver) {
         //devuelve diferentes estados
         boolean band = false;
+        
         if(clave.equals(claver)){
+            
         Usuario user = new Usuario(usuario, clave);
         band = ModeloUsuario.recupera(user); 
         return band;

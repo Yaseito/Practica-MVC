@@ -5,6 +5,7 @@
  */
 package com.demo.view;
 
+import com.demo.controlller.ControllerLogin;
 import com.demo.model.entity.Usuario;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -14,12 +15,13 @@ import javax.swing.JOptionPane;
  * @author Familia_Borja_Li
  */
 public class FrmRecupera extends javax.swing.JFrame {
-
+    ControllerLogin cLogin;
     /**
      * Creates new form FrmRecupera
      */
     public FrmRecupera() {
         initComponents();
+        cLogin = new ControllerLogin();
     }
 
     /**
@@ -137,11 +139,24 @@ public class FrmRecupera extends javax.swing.JFrame {
     }//GEN-LAST:event_txtUsuarioActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        
         this.setVisible(false);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-
+        String usuario, clave, claver;
+        usuario = this.txtUsuario.getText();
+        clave = this.txtNuevaContra.getText();
+        claver = this.txtRepetirContra.getText();
+        boolean band;
+        band = this.cLogin.recuperarClave(usuario, clave, claver);
+        if (band) {
+            //Recupera correcto
+            JOptionPane.showMessageDialog(this, "Cambio de contraseña correcta");
+        }else{
+            //Recupera incorrecto
+            JOptionPane.showMessageDialog(this, "Cambio Incorrecto");
+        }
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     /**

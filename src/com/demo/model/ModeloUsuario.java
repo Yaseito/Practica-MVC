@@ -54,7 +54,7 @@ public class ModeloUsuario extends Model {
             FileWriter flwriter = null;
         try {
             //crea el flujo para escribir en el archivo
-            flwriter = new FileWriter("G:\\DemoMVC\\Usuario.txt");
+            flwriter = new FileWriter("\\Usuario.txt");
             //crea un buffer o flujo intermedio antes de escribir directamente en el archivo
             BufferedWriter bfwriter = new BufferedWriter(flwriter);
 

@@ -5,17 +5,24 @@
  */
 package com.demo.model;
 
+import com.demo.controlller.conexion.Conexion;
 import com.demo.model.entity.Usuario;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Hijos
  */
 public class ModeloUsuario extends Model {
+
+    Conexion cn = new Conexion();
+    Connection con = cn.getConexion();
 
     static public boolean logIn(Usuario user) {
         boolean band = false;
@@ -29,46 +36,38 @@ public class ModeloUsuario extends Model {
 
     static public boolean logUp(Usuario user) {
         boolean band = false;
-        FileWriter flwriter = null;
         try {
-            //crea el flujo para escribir en el archivo
-            flwriter = new FileWriter("G:\\DemoMVC\\Usuario.txt");
-            //crea un buffer o flujo intermedio antes de escribir directamente en el archivo
-            BufferedWriter bfwriter = new BufferedWriter(flwriter);
+            PreparedStatement ps = con.prepareStatement("insert into Usuario(id_Usuario, Email,\n"
+                    + "Clave, Apellidos ,Nombres,Tipo) values\n"
+                    + "(?,?,?,?,?,?);");
 
-            //escribe los datos en el archivo
-            bfwriter.write("Id: " + user.getId() + "\n Email: " + user.getEmail() + "\n  Clave:" + user.getClave()
-                    + "\n Apellidos: " + user.getApellidos() + "\n Nombres: " + user.getNombres() + "\n Tipo:" + user.getTipo() + "\n");
+            ps.setInt(1, (int) user.getId());
+            ps.setString(2, user.getEmail());
+            ps.setString(3, user.getClave());
+            ps.setString(4, user.getApellidos());
+            ps.setString(5, user.getNombres());
+            ps.setInt(6, user.getTipo());
 
-            //cierra el buffer intermedio
-            bfwriter.close();
-            band=true;
-        } catch (IOException e) {
-            e.printStackTrace();
+            ps.executeUpdate();
+
+            JOptionPane.showMessageDialog(null, "Registro Correcto");
+        } catch (Exception ex) {
+
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+
         }
-          return band;
+        return band;
     }
 
     static public boolean recupera(Usuario user) {
         boolean band = false;
-            FileWriter flwriter = null;
-        try {
-            //crea el flujo para escribir en el archivo
-            flwriter = new FileWriter("\\Usuario.txt");
-            //crea un buffer o flujo intermedio antes de escribir directamente en el archivo
-            BufferedWriter bfwriter = new BufferedWriter(flwriter);
-
-            //Modifica datos en el archivo
-            bfwriter.write("Se modifica la contraseña de: " + user.getEmail() + " por: " + user.getClave()
-                    + "\n");
-
-            //cierra el buffer intermedio
-            bfwriter.close();
-            band = true;
-        } catch (IOException e) {
-            e.printStackTrace();
+       try {
+            PreparedStatement ps = con.prepareStatement("update Usuario set Email='" + user.getEmail() + "' , " + "Clave='" + user.getClave() + "';");
+            ps.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Datos actualizados");
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
         }
-
         return band;
     }
 }

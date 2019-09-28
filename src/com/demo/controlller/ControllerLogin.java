@@ -2,6 +2,8 @@ package com.demo.controlller;
 
 import com.demo.model.ModeloUsuario;
 import com.demo.model.entity.Usuario;
+import java.io.IOException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -13,31 +15,38 @@ public class ControllerLogin extends Controller {
     public ControllerLogin() {
     }
 
-    public boolean logIn(String usuario, String clave) {
-        boolean band = false;
-        Usuario user = new Usuario(usuario, clave);
-        band = ModeloUsuario.logIn(user);
-        return band;
-    }
+    public void logIn(String usuario, String clave){
+        if (ModeloUsuario.logIn(usuario, clave)) {
+            JOptionPane.showMessageDialog(null, "Login Exitoso");
 
-    public boolean logUp(int id, String email, String clave, String apellidos, String nombres, int tipo) {
-        boolean band = false;
-        Usuario user = new Usuario(id, email, clave, apellidos, nombres, tipo);
-        band= ModeloUsuario.logUp(user);
-        return band;
-    }
+        } else {
+            JOptionPane.showMessageDialog(null, "Usuario o contraseña Incorrecto");
 
-    public boolean recuperarClave(String usuario, String clave, String claver) {
-        //devuelve diferentes estados
-        boolean band = false;
-        
-        if(clave.equals(claver)){
-            
-        Usuario user = new Usuario(usuario, clave);
-        band = ModeloUsuario.recupera(user); 
-        return band;
         }
-        return band;
+    }
+
+    public void logUp(int id, String email, String clave, String apellidos, String nombres, int tipo) {
+    
+        Usuario user = new Usuario(id, email, clave, apellidos, nombres, tipo);
+        if(ModeloUsuario.logUp(user)){
+            JOptionPane.showMessageDialog(null, "Registro Exitoso");
+        }else{
+             JOptionPane.showMessageDialog(null, "Registro Incorrecto");           
+        }
+    }
+
+    public void recuperarClave(String usuario, String clave, String claver) {
+
+        if(clave.equals(claver)){
+            if(ModeloUsuario.recupera(usuario, clave)){
+                JOptionPane.showMessageDialog(null, "Usuario Recuperado");
+            } else{
+                JOptionPane.showMessageDialog(null, "Usuario No Existe");
+            }
+            
+        }else{
+            JOptionPane.showMessageDialog(null, "Las contraseñas No Coinciden");
+        }
     }
 
 }

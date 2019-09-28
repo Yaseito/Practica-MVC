@@ -22,6 +22,7 @@ public class FrmRecupera extends javax.swing.JFrame {
     public FrmRecupera() {
         initComponents();
         cLogin = new ControllerLogin();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -148,15 +149,8 @@ public class FrmRecupera extends javax.swing.JFrame {
         usuario = this.txtUsuario.getText();
         clave = this.txtNuevaContra.getText();
         claver = this.txtRepetirContra.getText();
-        boolean band;
-        band = this.cLogin.recuperarClave(usuario, clave, claver);
-        if (band) {
-            //Recupera correcto
-            JOptionPane.showMessageDialog(this, "Cambio de contraseña correcta");
-        }else{
-            //Recupera incorrecto
-            JOptionPane.showMessageDialog(this, "Cambio Incorrecto");
-        }
+        this.cLogin.recuperarClave(usuario, clave, claver);
+        this.setVisible(false);
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     /**

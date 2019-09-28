@@ -6,6 +6,9 @@
 package com.demo.view;
 
 import com.demo.controlller.ControllerLogin;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -20,6 +23,7 @@ public class VistaLogin extends javax.swing.JFrame {
 
         initComponents();
         cLogin = new ControllerLogin();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -76,26 +80,25 @@ public class VistaLogin extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(181, 181, 181)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(64, 64, 64)
+                        .addGap(44, 44, 44)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jtxtClave, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
-                                    .addComponent(jtxtUsuario)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jbtnLogIn, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jbtnLogUp, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)))
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(38, 38, 38)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jtxtUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+                            .addComponent(jtxtClave)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(jbtnLogIn, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jbtnRecuperar)))
-                .addContainerGap(28, Short.MAX_VALUE))
+                        .addComponent(jbtnLogUp, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jbtnRecuperar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(117, 117, 117)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -115,7 +118,7 @@ public class VistaLogin extends javax.swing.JFrame {
                     .addComponent(jbtnLogIn)
                     .addComponent(jbtnLogUp)
                     .addComponent(jbtnRecuperar))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -125,15 +128,9 @@ public class VistaLogin extends javax.swing.JFrame {
         String usuario, clave;
         usuario = this.jtxtUsuario.getText();
         clave = this.jtxtClave.getText();
-        boolean band;
-        band = this.cLogin.logIn(usuario, clave);
-        if (band) {
-            //Login correcto
-            JOptionPane.showMessageDialog(this, "Login Correcto");
-        } else {
-            //login incorrecto
-            JOptionPane.showMessageDialog(this, "Login Incorrecto");
-        }
+        
+        this.cLogin.logIn(usuario, clave);
+       
 
     }//GEN-LAST:event_jbtnLogInActionPerformed
 
@@ -143,8 +140,8 @@ public class VistaLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtnLogUpActionPerformed
 
     private void jbtnRecuperarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnRecuperarActionPerformed
-        FrmRecupera logup = new FrmRecupera();
-        logup.setVisible(true);
+        FrmRecupera recupera = new FrmRecupera();
+        recupera.setVisible(true);
     }//GEN-LAST:event_jbtnRecuperarActionPerformed
 
     /**

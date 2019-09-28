@@ -19,6 +19,7 @@ public class FrmVistaLogup extends javax.swing.JFrame {
     public FrmVistaLogup() {
         initComponents();
         cLogin = new ControllerLogin();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -180,15 +181,8 @@ public class FrmVistaLogup extends javax.swing.JFrame {
         apellidos = this.txtApellidos.getText();
         nombres = this.txtNombres.getText();
         tipo = Integer.parseInt(this.txtTipo.getText());
-        boolean band;
-        band = this.cLogin.logUp(id, usuario, clave, apellidos, nombres, tipo);
-        if(band){
-            JOptionPane.showMessageDialog(this, "Registro Correcto");
-        } else {
-            JOptionPane.showMessageDialog(this, "Registro incorrecto");
-        }
-        
-        
+        this.cLogin.logUp(id, usuario, clave, apellidos, nombres, tipo);
+
         this.setVisible(false);
     }//GEN-LAST:event_btnacceptActionPerformed
 

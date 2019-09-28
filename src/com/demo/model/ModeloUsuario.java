@@ -5,13 +5,14 @@
  */
 package com.demo.model;
 
-import com.demo.controlller.conexion.Conexion;
+import com.demo.model.conexion.Conexion;
 import com.demo.model.entity.Usuario;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -21,23 +22,37 @@ import javax.swing.JOptionPane;
  */
 public class ModeloUsuario extends Model {
 
-    Conexion cn = new Conexion();
-    Connection con = cn.getConexion();
+    static private PreparedStatement ps;
+    static private ResultSet rs;
 
-    static public boolean logIn(Usuario user) {
+    static public boolean logIn(String usuario, String contra) {
         boolean band = false;
-        if (user.getEmail().compareTo("admin@gmail.com") == 0 && user.getClave().compareTo("123456") == 0) {
-            band = true;
-        } else {
-            return band;
+        Connection con = Conexion.getConexion();
+        try {
+            ps = con.prepareStatement("select * from Usuario where Email=?;");
+
+            ps.setString(1, usuario);
+
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                if (contra.equals(rs.getString("Clave"))) {
+                    band = true;
+                }
+            }
+            con.close();
+        } catch (Exception ex) {
+
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+
         }
         return band;
     }
 
     static public boolean logUp(Usuario user) {
         boolean band = false;
+        Connection con = Conexion.getConexion();
         try {
-            PreparedStatement ps = con.prepareStatement("insert into Usuario(id_Usuario, Email,\n"
+            ps = con.prepareStatement("insert into Usuario(id_Usuario, Email,\n"
                     + "Clave, Apellidos ,Nombres,Tipo) values\n"
                     + "(?,?,?,?,?,?);");
 
@@ -49,8 +64,8 @@ public class ModeloUsuario extends Model {
             ps.setInt(6, user.getTipo());
 
             ps.executeUpdate();
-
-            JOptionPane.showMessageDialog(null, "Registro Correcto");
+            band = true;
+            con.close();
         } catch (Exception ex) {
 
             JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
@@ -59,12 +74,16 @@ public class ModeloUsuario extends Model {
         return band;
     }
 
-    static public boolean recupera(Usuario user) {
+    static public boolean recupera(String correo, String contra) {
         boolean band = false;
-       try {
-            PreparedStatement ps = con.prepareStatement("update Usuario set Email='" + user.getEmail() + "' , " + "Clave='" + user.getClave() + "';");
+        Connection con = Conexion.getConexion();       
+        
+        try {
+            ps = con.prepareStatement("update Usuario set Clave=? where Email=?;");
+            ps.setString(1, contra);
+            ps.setString(2, correo);
             ps.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Datos actualizados");
+            band=true;
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
         }

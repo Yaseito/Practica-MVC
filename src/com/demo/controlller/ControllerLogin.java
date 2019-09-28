@@ -2,6 +2,7 @@ package com.demo.controlller;
 
 import com.demo.model.ModeloUsuario;
 import com.demo.model.entity.Usuario;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -13,31 +14,36 @@ public class ControllerLogin extends Controller {
     public ControllerLogin() {
     }
 
-    public boolean logIn(String usuario, String clave) {
-        boolean band = false;
-        Usuario user = new Usuario(usuario, clave);
-        band = ModeloUsuario.logIn(user);
-        return band;
+    public void logIn(String usuario, String clave) {
+        if(ModeloUsuario.logIn(usuario,clave)){
+            //Login correcto
+            JOptionPane.showMessageDialog(null, "Login Correcto");
+        } else {
+            //login incorrecto
+            JOptionPane.showMessageDialog(null, "Login Incorrecto");
+        }     
     }
 
-    public boolean logUp(int id, String email, String clave, String apellidos, String nombres, int tipo) {
-        boolean band = false;
+    public void logUp(int id, String email, String clave, String apellidos, String nombres, int tipo) {
         Usuario user = new Usuario(id, email, clave, apellidos, nombres, tipo);
-        band= ModeloUsuario.logUp(user);
-        return band;
+        if(ModeloUsuario.logUp(user)){
+            JOptionPane.showMessageDialog(null, "Registro Correcto");
+        } else {
+            JOptionPane.showMessageDialog(null, "Registro incorrecto");
+        }
     }
 
-    public boolean recuperarClave(String usuario, String clave, String claver) {
-        //devuelve diferentes estados
-        boolean band = false;
-        
+    public void recuperarClave(String usuario, String clave, String claver) {
         if(clave.equals(claver)){
-            
-        Usuario user = new Usuario(usuario, clave);
-        band = ModeloUsuario.recupera(user); 
-        return band;
+            if(ModeloUsuario.recupera(usuario, clave)){
+                JOptionPane.showMessageDialog(null, "Usuario recuperado");
+            } else {
+                JOptionPane.showMessageDialog(null, "Usuario No Existe");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden");
         }
-        return band;
+        
     }
 
 }
